@@ -138,8 +138,8 @@ Example:
 
 Developed by techGURUS
 
-GitHub: https://github.com/YOUR_USERNAME
+GitHub: https://github.com/sanae16
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](https://v0-overspending-alert-system-grfsmq46d-sanae16s-projects.vercel.app/) with your browser to see the result.
 
 
