@@ -93,7 +93,20 @@ fintrack-dashboard/
 
 ## Screenshots
 
-Add screenshots from the Visily prototype here.
+### Dashboard Overview
+![Dashboard Overview](./first.png)
+
+### Spending Analysis
+![Spending Analysis](./sec.png)
+
+### Transaction Details
+![Transaction Details](./third.png)
+
+### AI Insights & Recommendations
+![AI Insights](./fourth.png)
+
+### Account Settings
+![Account Settings](./fiveth.png)
 
 ---
 
