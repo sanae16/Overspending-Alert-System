@@ -146,7 +146,7 @@ Open [http://localhost:3000](https://v0-overspending-alert-system.vercel.app/) w
 
 ---
 
-## Author
+## Authors
 
 Developed by techGURUS
 
