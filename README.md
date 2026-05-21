@@ -112,7 +112,7 @@ fintrack-dashboard/
 
 ## Getting Started
 
-Open [http://localhost:3000](https://v0-overspending-alert-system-grfsmq46d-sanae16s-projects.vercel.app/) with your browser to see the result.
+Open [http://localhost:3000](https://v0-overspending-alert-system.vercel.app/) with your browser to see the result.
 
 ---
 
