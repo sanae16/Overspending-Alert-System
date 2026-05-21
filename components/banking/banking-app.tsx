@@ -10,6 +10,7 @@ import { InsufficientDataScreen } from "./insufficient-data-screen"
 import { SpendingBreakdownScreen } from "./spending-breakdown-screen"
 import { TransactionsScreen } from "./transactions-screen"
 import { SettingsScreen } from "./settings-screen"
+import { PhoneFrame } from "./phone-frame"
 
 type Screen =
   | "home"
@@ -107,9 +108,13 @@ export function BankingApp() {
   }
 
   return (
-    <div className="max-w-md mx-auto bg-background min-h-screen relative">
-      {renderScreen()}
-      <BottomNav activeTab={activeTab} onTabChange={handleTabChange} />
-    </div>
+    <PhoneFrame>
+      <div className="bg-background h-full relative flex flex-col">
+        <div className="flex-1 overflow-auto pt-12">
+          {renderScreen()}
+        </div>
+        <BottomNav activeTab={activeTab} onTabChange={handleTabChange} />
+      </div>
+    </PhoneFrame>
   )
 }
