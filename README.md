@@ -5,7 +5,6 @@
 An AI-powered overspending alert system designed to provide predictive financial insights, transaction monitoring, analytics, and personalized user experiences through a modern mobile-first interface.
 
 ---
-
 ## Overview
 
 This project is a modern fintech dashboard prototype originally designed in Visily and rebuilt as a production-ready frontend application using v0 by Vercel.
