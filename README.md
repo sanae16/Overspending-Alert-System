@@ -1,154 +1,35 @@
 # Overspending-Alert-System
 
-# FinTrack AI Dashboard
+This is a [Next.js](https://nextjs.org) project bootstrapped with [v0](https://v0.app).
 
-An AI-powered overspending alert system designed to provide predictive financial insights, transaction monitoring, analytics, and personalized user experiences through a modern mobile-first interface.
+## Built with v0
 
----
+This repository is linked to a [v0](https://v0.app) project. You can continue developing by visiting the link below -- start new chats to make changes, and v0 will push commits directly to this repo. Every merge to `main` will automatically deploy.
 
-## Overview
-
-This project is a modern fintech dashboard prototype originally designed in Visily and rebuilt as a production-ready frontend application using v0 by Vercel.
-
-The application focuses on:
-
-- Financial analytics
-- Predictive spending insights
-- Transaction management
-- User account monitoring
-- AI-driven recommendations
-- Mobile-first UX design
-
----
-
-## Features
-
-### Dashboard Analytics
-- Financial overview cards
-- Spending summaries
-- Income tracking
-- Monthly performance metrics
-
-### AI Insights
-- Predictive expense analysis
-- Smart budgeting recommendations
-- Trend detection
-- Personalized financial insights
-
-### Transaction Management
-- Recent transaction history
-- Category filtering
-- Search functionality
-- Real-time balance updates
-
-### User Experience
-- Clean fintech UI
-- Mobile-first responsive design
-- Fast navigation
-- Minimal modern interface
-
----
-
-## Tech Stack
-
-### Frontend
-- React
-- Next.js
-- Tailwind CSS
-- TypeScript
-
-### Backend (Planned)
-- Supabase / Firebase
-- PostgreSQL
-- Authentication
-- API integrations
-
-### Deployment
-- Vercel
-
----
-
-## Project Structure
-
-```bash
-fintrack-dashboard/
-│
-├── public/
-├── src/
-│   ├── components/
-│   ├── pages/
-│   ├── layouts/
-│   ├── hooks/
-│   ├── services/
-│   ├── utils/
-│   └── styles/
-│
-├── package.json
-├── tailwind.config.js
-├── tsconfig.json
-└── README.md
-```
-
----
-
-## Screenshots
-
-### Dashboard Overview
-![Dashboard Overview](./first.png)
-
-### Spending Analysis
-![Spending Analysis](./sec.png)
-
-### Transaction Details
-![Transaction Details](./third.png)
-
-### AI Insights & Recommendations
-![AI Insights](./fourth.png)
-
-### Account Settings
-![Account Settings](./fiveth.png)
-
----
+[Continue working on v0 →](https://v0.app/chat/projects/prj_TyR4qUtw1YHaEOQT9883zfbBhpE8)
 
 ## Getting Started
 
-Open [http://localhost:3000](https://v0-overspending-alert-system.vercel.app/) with your browser to see the result.
+First, run the development server:
 
----
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+```
 
-## Roadmap
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-### Phase 1
-- [x] UI/UX Prototype
-- [ ] Frontend Development
-- [ ] Responsive Optimization
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-### Phase 2
-- [ ] Authentication
-- [ ] Database Integration
-- [ ] Transaction APIs
-- [ ] AI Recommendation Engine
+## Learn More
 
-### Phase 3
-- [ ] Notifications
-- [ ] Dark Mode
-- [ ] Export Reports
-- [ ] Multi-account Support
+To learn more, take a look at the following resources:
 
----
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- [v0 Documentation](https://v0.app/docs) - learn about v0 and how to use it.
 
-## Future Improvements
-
-- Open banking API integration
-- AI financial assistant
-- Voice-enabled analytics
-- Investment portfolio tracking
-- Fraud detection alerts
-
----
-
-## Author
-
-Developed by techGURUS
-
-GitHub: https://github.com/sanae16
+<a href="https://v0.app/chat/api/kiro/clone/sanae16/Overspending-Alert-System" alt="Open in Kiro"><img src="https://pdgvvgmkdvyeydso.public.blob.vercel-storage.com/open%20in%20kiro.svg?sanitize=true" /></a>
