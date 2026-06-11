@@ -69,20 +69,6 @@ export function InsufficientDataScreen({
           </h3>
 
           <div className="space-y-4">
-            <Card className="p-4 bg-card border-border">
-              <div className="flex items-start gap-3">
-                <div className="p-2 rounded-lg bg-primary/10">
-                  <Upload className="h-4 w-4 text-primary" />
-                </div>
-                <div>
-                  <p className="font-medium text-foreground">Add Missing Data</p>
-                  <p className="text-sm text-muted-foreground mt-1">
-                    Manually import or link your latest banking statements to
-                    fill the gaps in the last 30 days.
-                  </p>
-                </div>
-              </div>
-            </Card>
 
             <Card className="p-4 bg-card border-border">
               <div className="flex items-start gap-3">
