@@ -124,7 +124,7 @@ export function InsufficientDataScreen({
             className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
           >
             <Plus className="h-4 w-4 mr-2" />
-            Add Transactions
+            Go back home 
           </Button>
           <Button onClick={onBack} variant="outline" className="w-full">
             Try Again Later
