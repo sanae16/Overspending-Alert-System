@@ -109,10 +109,7 @@ export function InsufficientDataScreen({
             onClick={onAddTransactions}
             className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
           >
-            Go back home 
-          </Button>
-          <Button onClick={onBack} variant="outline" className="w-full">
-            Try Again Later
+            Try Again Later 
           </Button>
         </div>
 
