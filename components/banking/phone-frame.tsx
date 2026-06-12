@@ -1,15 +1,28 @@
 "use client"
 
+import { useState } from "react"
+
 interface PhoneFrameProps {
   children: React.ReactNode
 }
 
 export function PhoneFrame({ children }: PhoneFrameProps) {
+  const [isPowerOn, setIsPowerOn] = useState(true)
+
+  const togglePower = () => {
+    setIsPowerOn(!isPowerOn)
+  }
+
   return (
     <div className="flex items-center justify-center min-h-screen bg-muted/50 p-4">
       <div className="relative">
         {/* Power button - right side */}
-        <div className="absolute -right-[3px] top-28 w-[3px] h-12 bg-zinc-700 rounded-r-sm" />
+        <button
+          onClick={togglePower}
+          className="absolute -right-[3px] top-28 w-[3px] h-12 bg-zinc-700 rounded-r-sm hover:bg-zinc-600 transition-colors cursor-pointer group"
+          aria-label={isPowerOn ? "Turn off" : "Turn on"}
+          title={isPowerOn ? "Turn off" : "Turn on"}
+        />
         
         {/* Volume buttons - left side */}
         <div className="absolute -left-[3px] top-24 w-[3px] h-8 bg-zinc-700 rounded-l-sm" />
@@ -22,25 +35,37 @@ export function PhoneFrame({ children }: PhoneFrameProps) {
         <div className="relative w-[375px] h-[812px] bg-zinc-900 rounded-[50px] p-[12px] shadow-2xl">
           {/* Screen bezel */}
           <div className="relative w-full h-full bg-background rounded-[38px] overflow-hidden">
-            {/* Dynamic Island / Notch */}
-            <div className="absolute top-0 left-0 right-0 z-50 flex justify-center pt-3">
-              <div className="w-[120px] h-[34px] bg-zinc-900 rounded-full flex items-center justify-center gap-2">
-                {/* Front camera */}
-                <div className="w-3 h-3 rounded-full bg-zinc-800 border border-zinc-700">
-                  <div className="w-1.5 h-1.5 rounded-full bg-zinc-600 mt-[3px] ml-[3px]" />
+            {isPowerOn ? (
+              <>
+                {/* Dynamic Island / Notch */}
+                <div className="absolute top-0 left-0 right-0 z-50 flex justify-center pt-3">
+                  <div className="w-[120px] h-[34px] bg-zinc-900 rounded-full flex items-center justify-center gap-2">
+                    {/* Front camera */}
+                    <div className="w-3 h-3 rounded-full bg-zinc-800 border border-zinc-700">
+                      <div className="w-1.5 h-1.5 rounded-full bg-zinc-600 mt-[3px] ml-[3px]" />
+                    </div>
+                    {/* Speaker */}
+                    <div className="w-12 h-1 bg-zinc-800 rounded-full" />
+                  </div>
                 </div>
-                {/* Speaker */}
-                <div className="w-12 h-1 bg-zinc-800 rounded-full" />
+
+                {/* Screen content */}
+                <div className="h-full overflow-hidden">
+                  {children}
+                </div>
+
+                {/* Home indicator */}
+                <div className="absolute bottom-2 left-1/2 -translate-x-1/2 w-32 h-1 bg-foreground/20 rounded-full" />
+              </>
+            ) : (
+              /* Power off screen - black with power off message */
+              <div className="w-full h-full bg-black flex items-center justify-center">
+                <div className="text-center">
+                  <div className="text-white/60 text-sm mb-4">Power Off</div>
+                  <div className="text-white/40 text-xs">(Click power button to turn on)</div>
+                </div>
               </div>
-            </div>
-
-            {/* Screen content */}
-            <div className="h-full overflow-hidden">
-              {children}
-            </div>
-
-            {/* Home indicator */}
-            <div className="absolute bottom-2 left-1/2 -translate-x-1/2 w-32 h-1 bg-foreground/20 rounded-full" />
+            )}
           </div>
         </div>
       </div>
