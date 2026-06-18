@@ -6,7 +6,6 @@ import { Card } from "@/components/ui/card"
 import { Switch } from "@/components/ui/switch"
 import { Button } from "@/components/ui/button"
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog"
-import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import {
   ArrowLeft,
@@ -18,9 +17,6 @@ import {
   LogOut,
   ChevronRight,
   Moon,
-  Lock,
-  CheckCircle,
-  AlertCircle,
 } from "lucide-react"
 
 interface SettingsScreenProps {
@@ -42,99 +38,9 @@ interface SettingGroup {
 }
 
 export function SettingsScreen({ onBack }: SettingsScreenProps) {
-  const [showPinModal, setShowPinModal] = useState(false)
-  const [pinStep, setPinStep] = useState<"current" | "new" | "confirm">("current")
-  const [currentPin, setCurrentPin] = useState("")
-  const [newPin, setNewPin] = useState("")
-  const [confirmPin, setConfirmPin] = useState("")
-  const [pinError, setPinError] = useState("")
-  const [pinSuccess, setPinSuccess] = useState(false)
-  const [isLoading, setIsLoading] = useState(false)
-  const [isPinSet, setIsPinSet] = useState(true)
-
   // Notifications toggle state
   const [notificationsEnabled, setNotificationsEnabled] = useState(true)
   const [darkModeEnabled, setDarkModeEnabled] = useState(false)
-
-  const handlePinReset = () => {
-    setCurrentPin("")
-    setNewPin("")
-    setConfirmPin("")
-    setPinStep("current")
-    setShowPinModal(false)
-    setPinError("")
-    setPinSuccess(false)
-  }
-
-  const handleCurrentPinSubmit = async () => {
-    if (currentPin.length !== 4) {
-      setPinError("PIN must be 4 digits")
-      return
-    }
-
-    setIsLoading(true)
-    try {
-      // Simulate backend validation
-      // In production, this would call your actual backend
-      if (currentPin === "1234" || currentPin === "0000") {
-        setPinError("")
-        setPinStep("new")
-      } else {
-        setPinError("Incorrect PIN. Please try again.")
-        setCurrentPin("")
-      }
-    } catch (error) {
-      setPinError("Error validating PIN")
-    } finally {
-      setIsLoading(false)
-    }
-  }
-
-  const handleNewPinSubmit = () => {
-    if (newPin.length !== 4) {
-      setPinError("PIN must be 4 digits")
-      return
-    }
-
-    if (newPin === currentPin) {
-      setPinError("New PIN must be different from current PIN")
-      return
-    }
-
-    setPinError("")
-    setPinStep("confirm")
-  }
-
-  const handleConfirmPinSubmit = async () => {
-    if (confirmPin.length !== 4) {
-      setPinError("PIN must be 4 digits")
-      return
-    }
-
-    if (newPin !== confirmPin) {
-      setPinError("PINs do not match. Please try again.")
-      setConfirmPin("")
-      return
-    }
-
-    setIsLoading(true)
-    try {
-      // Simulate backend save
-      // In production, this would call your actual backend
-      setPinSuccess(true)
-      setPinError("")
-      setIsPinSet(true)
-
-      // Close modal after 2 seconds
-      setTimeout(() => {
-        handlePinReset()
-      }, 2000)
-    } catch (error) {
-      setPinError("Error updating PIN")
-    } finally {
-      setIsLoading(false)
-    }
-  }
 
   const settingsGroups: SettingGroup[] = [
     {
@@ -181,16 +87,6 @@ export function SettingsScreen({ onBack }: SettingsScreenProps) {
           label: "Privacy & Security",
           description: "Password, biometrics, 2FA",
           action: "chevron",
-        },
-        {
-          icon: Lock,
-          label: "Change PIN",
-          description: "Update your 4-digit PIN for Predictive Analytics",
-          action: "button",
-          onClick: () => {
-            handlePinReset()
-            setShowPinModal(true)
-          },
         },
       ],
     },
@@ -317,100 +213,6 @@ export function SettingsScreen({ onBack }: SettingsScreenProps) {
           MoneyWise v1.0.0
         </p>
       </div>
-
-      {/* PIN Change Modal */}
-      <Dialog open={showPinModal} onOpenChange={setShowPinModal}>
-        <DialogContent className="sm:max-w-md">
-          <DialogHeader>
-            <DialogTitle>
-              {pinStep === "current" && "Verify Current PIN"}
-              {pinStep === "new" && "Enter New PIN"}
-              {pinStep === "confirm" && "Confirm New PIN"}
-            </DialogTitle>
-            <DialogDescription>
-              {pinStep === "current" && "Enter your current 4-digit PIN to proceed (test: 1234)"}
-              {pinStep === "new" && "Create a new 4-digit PIN for Predictive Analytics"}
-              {pinStep === "confirm" && "Re-enter your new PIN to confirm"}
-            </DialogDescription>
-          </DialogHeader>
-
-          <div className="space-y-4">
-            {pinError && (
-              <Alert variant="destructive">
-                <AlertCircle className="h-4 w-4" />
-                <AlertDescription>{pinError}</AlertDescription>
-              </Alert>
-            )}
-
-            {pinSuccess && (
-              <Alert className="border-green-200 bg-green-50">
-                <CheckCircle className="h-4 w-4 text-green-600" />
-                <AlertDescription className="text-green-800">
-                  PIN updated successfully!
-                </AlertDescription>
-              </Alert>
-            )}
-
-            {!pinSuccess && (
-              <>
-                <div className="flex justify-center">
-                  <InputOTP
-                    maxLength={4}
-                    value={
-                      pinStep === "current"
-                        ? currentPin
-                        : pinStep === "new"
-                          ? newPin
-                          : confirmPin
-                    }
-                    onChange={(value) => {
-                      if (pinStep === "current") setCurrentPin(value)
-                      else if (pinStep === "new") setNewPin(value)
-                      else setConfirmPin(value)
-                      setPinError("")
-                    }}
-                    disabled={isLoading}
-                  >
-                    <InputOTPGroup>
-                      <InputOTPSlot index={0} />
-                      <InputOTPSlot index={1} />
-                      <InputOTPSlot index={2} />
-                      <InputOTPSlot index={3} />
-                    </InputOTPGroup>
-                  </InputOTP>
-                </div>
-
-                <div className="flex gap-2">
-                  <Button
-                    variant="outline"
-                    onClick={() => handlePinReset()}
-                    disabled={isLoading}
-                    className="flex-1"
-                  >
-                    Cancel
-                  </Button>
-                  <Button
-                    onClick={() => {
-                      if (pinStep === "current") handleCurrentPinSubmit()
-                      else if (pinStep === "new") handleNewPinSubmit()
-                      else handleConfirmPinSubmit()
-                    }}
-                    disabled={
-                      (pinStep === "current" && currentPin.length !== 4) ||
-                      (pinStep === "new" && newPin.length !== 4) ||
-                      (pinStep === "confirm" && confirmPin.length !== 4) ||
-                      isLoading
-                    }
-                    className="flex-1"
-                  >
-                    {isLoading ? "Processing..." : "Continue"}
-                  </Button>
-                </div>
-              </>
-            )}
-          </div>
-        </DialogContent>
-      </Dialog>
     </div>
   )
 }
