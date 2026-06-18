@@ -18,7 +18,7 @@ export function PinModal({ isOpen, onClose, onSubmit, isLoading = false }: PinMo
   const [pin, setPin] = useState("")
   const [error, setError] = useState("")
   const [attempts, setAttempts] = useState(0)
-  const maxAttempts = 3
+  const maxAttempts = 5
 
   const handleSubmit = async () => {
     if (pin.length !== 4) {
