@@ -33,9 +33,16 @@ export function BankingApp() {
     setCurrentScreen(tab)
   }
 
-  const handleCheckBudget = () => {
+  /** const handleCheckBudget = () => {
+    setCurrentScreen("analysis")
+  } **/
+
+  const handleCheckBudget = async () => {
+  const isPinValid = await validateUserPin()
+  if (isPinValid) {
     setCurrentScreen("analysis")
   }
+}
 
   const handleAnalysisComplete = (
     status: "warning" | "on-track" | "insufficient"
