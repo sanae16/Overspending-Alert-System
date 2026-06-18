@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button"
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp"
 import { AlertCircle } from "lucide-react"
 import { Alert, AlertDescription } from "@/components/ui/alert"
-import { validatePinLocally } from "@/lib/auth/pin-validator"
 
 interface PinModalProps {
   isOpen: boolean
@@ -14,9 +13,6 @@ interface PinModalProps {
   onSubmit: (pin: string) => Promise<boolean>
   isLoading?: boolean
 }
-
-// Test PIN for local testing - Change this value as needed
-const TEST_PIN = "1234"
 
 export function PinModal({ isOpen, onClose, onSubmit, isLoading = false }: PinModalProps) {
   const [pin, setPin] = useState("")
@@ -31,28 +27,13 @@ export function PinModal({ isOpen, onClose, onSubmit, isLoading = false }: PinMo
     }
 
     try {
-      // Local testing validation
-      const isLocallyValid = validatePinLocally(pin, TEST_PIN)
-      if (isLocallyValid) {
-        // If local validation passes, proceed with onSubmit
-        const isValid = await onSubmit(pin)
-        if (isValid) {
-          setPin("")
-          setError("")
-          setAttempts(0)
-          onClose()
-        } else {
-          const newAttempts = attempts + 1
-          setAttempts(newAttempts)
-          setError("Incorrect PIN")
-          setPin("")
-
-          if (newAttempts >= maxAttempts) {
-            setError("Too many failed attempts. Please try again later.")
-          }
-        }
+      const isValid = await onSubmit(pin)
+      if (isValid) {
+        setPin("")
+        setError("")
+        setAttempts(0)
+        onClose()
       } else {
-        // Local validation failed
         const newAttempts = attempts + 1
         setAttempts(newAttempts)
         setError("Incorrect PIN")
