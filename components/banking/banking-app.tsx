@@ -59,14 +59,8 @@ export function BankingApp() {
   }
 
   const handleCheckBudget = () => {
-    // Check if user already verified PIN in this session
-    if (pinSessionManager.isValidatedInSession()) {
-      // Skip PIN modal and go directly to analysis
-      setCurrentScreen("analysis")
-    } else {
-      // Show PIN modal
-      setIsPinModalOpen(true)
-    }
+    // Skip PIN modal and go directly to analysis
+    setCurrentScreen("analysis")
   }
 
   const handlePinModalClose = () => {
