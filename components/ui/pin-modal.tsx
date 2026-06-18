@@ -72,7 +72,7 @@ export function PinModal({ isOpen, onClose, onSubmit, isLoading = false }: PinMo
             <div className="flex justify-center">
               <InputOTP
                 maxLength={4}
-                value={pin}
+                value={1234}
                 onChange={setPin}
                 disabled={isLoading || isLockedOut}
               >
