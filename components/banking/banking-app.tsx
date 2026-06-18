@@ -11,6 +11,8 @@ import { SpendingBreakdownScreen } from "./spending-breakdown-screen"
 import { TransactionsScreen } from "./transactions-screen"
 import { SettingsScreen } from "./settings-screen"
 import { PhoneFrame } from "./phone-frame"
+import { PinModal } from "@/components/ui/pin-modal"
+import { validatePinWithBackend, pinSessionManager } from "@/lib/auth/pin-validator"
 
 type Screen =
   | "home"
@@ -27,22 +29,54 @@ type Tab = "home" | "transactions" | "settings"
 export function BankingApp() {
   const [currentScreen, setCurrentScreen] = useState<Screen>("home")
   const [activeTab, setActiveTab] = useState<Tab>("home")
+  const [isPinModalOpen, setIsPinModalOpen] = useState(false)
+  const [isPinLoading, setIsPinLoading] = useState(false)
 
   const handleTabChange = (tab: Tab) => {
     setActiveTab(tab)
     setCurrentScreen(tab)
   }
 
-  /** const handleCheckBudget = () => {
-    setCurrentScreen("analysis")
-  } **/
+  const handlePinSubmit = async (pin: string): Promise<boolean> => {
+    setIsPinLoading(true)
+    try {
+      // Validate PIN with backend
+      const isValid = await validatePinWithBackend(pin)
 
-  const handleCheckBudget = async () => {
-  const isPinValid = await validateUserPin()
-  if (isPinValid) {
-    setCurrentScreen("analysis")
+      if (isValid) {
+        // Mark session as PIN-verified
+        pinSessionManager.markAsValidated()
+        return true
+      }
+
+      return false
+    } catch (error) {
+      console.error("Error during PIN validation:", error)
+      return false
+    } finally {
+      setIsPinLoading(false)
+    }
   }
-}
+
+  const handleCheckBudget = () => {
+    // Check if user already verified PIN in this session
+    if (pinSessionManager.isValidatedInSession()) {
+      // Skip PIN modal and go directly to analysis
+      setCurrentScreen("analysis")
+    } else {
+      // Show PIN modal
+      setIsPinModalOpen(true)
+    }
+  }
+
+  const handlePinModalClose = () => {
+    setIsPinModalOpen(false)
+  }
+
+  const proceedToAnalysis = () => {
+    setCurrentScreen("analysis")
+    handlePinModalClose()
+  }
 
   const handleAnalysisComplete = (
     status: "warning" | "on-track" | "insufficient"
@@ -115,13 +149,28 @@ export function BankingApp() {
   }
 
   return (
-    <PhoneFrame>
-      <div className="bg-background h-full relative flex flex-col">
-        <div className="flex-1 overflow-auto pt-12">
-          {renderScreen()}
+    <>
+      <PhoneFrame>
+        <div className="bg-background h-full relative flex flex-col">
+          <div className="flex-1 overflow-auto pt-12">
+            {renderScreen()}
+          </div>
+          <BottomNav activeTab={activeTab} onTabChange={handleTabChange} />
         </div>
-        <BottomNav activeTab={activeTab} onTabChange={handleTabChange} />
-      </div>
-    </PhoneFrame>
+      </PhoneFrame>
+
+      <PinModal
+        isOpen={isPinModalOpen}
+        onClose={handlePinModalClose}
+        onSubmit={async (pin) => {
+          const isValid = await handlePinSubmit(pin)
+          if (isValid) {
+            proceedToAnalysis()
+          }
+          return isValid
+        }}
+        isLoading={isPinLoading}
+      />
+    </>
   )
 }
